@@ -1,0 +1,38 @@
+reset;
+model NLP.mod;
+include IG.INIVAL;
+option solver ipopt;
+solve;
+
+shell ("del " & ("opti_flag.txt"));
+if match (solve_message, "Optimal") > 0 then {
+	printf "1">>("opti_flag.txt");
+} else{
+	printf "0">>("opti_flag.txt");
+}
+
+shell ("del " & ("x.txt"));
+shell ("del " & ("y.txt"));
+shell ("del " & ("theta.txt"));
+shell ("del " & ("phy.txt"));
+
+for {i in {1}} {
+	for {j in K} {
+		printf "%5.3f; ", x[i,j] >>("x.txt");
+		printf "%5.3f; ", y[i,j] >>("y.txt");
+		printf "%5.3f; ", theta[i,j] >>("theta.txt");
+		printf "%5.3f; ", phy[i,j] >>("phy.txt");
+	}
+}
+for {i in {2..Nfe}} {
+	for {j in J} {
+		printf "%5.3f; ", x[i,j] >>("x.txt");
+		printf "%5.3f; ", y[i,j] >>("y.txt");
+		printf "%5.3f; ", theta[i,j] >>("theta.txt");
+		printf "%5.3f; ", phy[i,j] >>("phy.txt");
+	}
+}
+close ("x.txt");
+close ("y.txt");
+close ("theta.txt");
+close ("phy.txt");
