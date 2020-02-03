@@ -99,8 +99,10 @@ s.t. EQ_terminal_x:
 x[Nfe,K_radau] = BV[4];
 s.t. EQ_terminal_y:
 y[Nfe,K_radau] = BV[5];
-s.t. EQ_terminal_theta:
-theta[Nfe,K_radau] = BV[6];
+s.t. EQ_terminal_theta_sin:
+sin(theta[Nfe,K_radau]) = sin(BV[6]);
+s.t. EQ_terminal_theta_cos:
+cos(theta[Nfe,K_radau]) = cos(BV[6]);
 s.t. EQ_terminal_v:
 v[Nfe,K_radau] = 0;
 s.t. EQ_terminal_phy:
